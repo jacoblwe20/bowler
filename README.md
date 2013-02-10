@@ -59,3 +59,10 @@ mocha
 
 all the test are located in `test/test.js`
 
+### Examples
+
+```shell
+node app.js
+```
+
+
