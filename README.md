@@ -55,7 +55,7 @@ running test
 
 ```shell
 mocha
-``
+```
 
 all the test are located in `test/test.js`
 
