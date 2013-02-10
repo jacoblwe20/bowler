@@ -19,7 +19,7 @@ var helloView = bowler.View('hello', '<p>{{hello}}</p>');
 The model and view are bound by thier names (the first argument);
 
 ```javascript
-//binding the veiw to an element using css selectors
+//binding the veiw to an element using jquery selectors
 var ele = helloView.bind('<div/>');
 
 //element is updated
@@ -43,7 +43,7 @@ Install repo & nodemodules
 
 ```shell
 git clone https://github.com/jacoblwe20/bowler.git
-cd Bowler
+cd bowler
 npm install
 ```
 _you might need to install mocha globally_
