@@ -1,0 +1,33 @@
+<!doctype>
+<title>App Model</title>
+<link rel="stylesheet" type="text/css" href="/examples/main.css">
+<div class="container"></div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.min.js"></script>
+<script src="../lib/Bowler.js"></script>
+
+<script class="bowler" type="text/x-handlebars-template">
+  <header>
+  	<h1>{{headline}}</h1>
+  </header>
+  <article class="page"></article>
+  <footer>
+  	<p>{{footer}}</p>
+  </footer>
+</script>
+
+<script>
+	var bowler = Bowler();
+	bowler.render($('.bowler').html());
+	bowler.extend({
+		headline: 'App Model',
+		footer: 'try it for your self'
+	});
+	bowler.bind('.container');
+	var page = bowler.Model('page', {
+		title : 'Simple Model', 
+		tagline: 'Checkout the code!'
+	});
+	var pageView = bowler.View('page', '<h3>{{title}}</h3><em>{{tagline}}</em>');
+	pageView.bind('.page');
+</script>

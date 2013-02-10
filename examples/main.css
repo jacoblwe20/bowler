@@ -1,0 +1,28 @@
+body{
+  background: #ddd;
+  font-family: sans-serif;
+}
+
+.container{
+  background: #fff;
+  padding: 20px;
+  max-width: 660px;
+  margin: 10px auto;
+}
+
+ul{
+  padding: 0;
+  list-style-type: none;
+}
+li{
+  display: inline-block;
+  margin: 10px;
+}
+a{
+  color: #23CEC0;
+}
+
+.page{
+  border: 1px solid #23CEC0;
+  padding: 0 0 20px 20px;
+}

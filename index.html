@@ -1,0 +1,48 @@
+<!doctype>
+<title>Bowler Examples</title>
+<link rel="stylesheet" type="text/css" href="/examples/main.css">
+<div class="container"></div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.rc.2/handlebars.min.js"></script>
+<script src="../lib/Bowler.js"></script>
+
+<script class="bowler" type="text/x-handlebars-template">
+  <header>
+    <h1>{{headline}}</h1>
+  </header>
+  <nav class="links"></nav>
+  <footer>
+    <em>{{footer}}</em>
+  </footer>
+</script>
+
+<script class="nav" type="text/x-handlebars-template">
+  <ul>
+    {{#each links}}
+      <li><a href="{{href}}">{{title}}</a></li>
+    {{/each}}
+  </ul>
+</script>
+
+<script>
+  var bowler = Bowler();
+  bowler.render($('.bowler').html());
+  bowler.extend({
+    headline: 'Bowler Examples',
+    footer: 'more to come'
+  });
+  bowler.bind('.container');
+
+  var examples = bowler.Model('examples');
+  examples.extend({
+    links : [
+      {href : '/examples/simple_model.html', title : 'A Simple Model'},
+      {href : '/examples/app_model.html', title : 'App Model'},
+      {href : '/examples/dynamic_model.html', title : 'Dynamic Model'}
+    ]
+  });
+  console.log([examples.model, $('.nav').html()]);
+  exampleView = bowler.View('examples', $('.nav').html());
+  exampleView.bind('.links');
+
+</script>
