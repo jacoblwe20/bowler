@@ -62,6 +62,25 @@ describe('Bowler', function(){
 				hello.extend({title: 'world'});
 				assert.equal('undefined',typeof bowler.model.title);
 			})
+			it('Get should be a function', function(){
+				var bowler = Bowler()
+				var hello = bowler.Model('hello')
+				assert.equal('function',typeof hello.get);
+			})
+			it('Get should be a function', function(){
+				var bowler = Bowler()
+				var hello = bowler.Model('hello')
+				assert.equal('function',typeof hello.get);
+			})
+			it('Get should update the model in callback', function(){
+				var bowler = Bowler()
+				var hello = bowler.Model('hello')
+				hello.get('test.json', function(){
+					hello.model.title.should.equal('world');
+					done();
+				})
+				assert.equal('function',typeof hello.get);
+			})
 		})
 	})
 
