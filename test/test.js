@@ -25,7 +25,7 @@ describe('Bowler', function(){
 		it('should have a child object when there are children models', function(){
 			var bowler = Bowler()
 			var hello = bowler.Model('hello', {hello : 'world'})
-			assert.equal('object', typeof bowler.model.child)
+			assert.equal('object', typeof bowler.model._children)
 		})
 
 		describe('Contructor', function(){
@@ -181,7 +181,14 @@ describe('Bowler', function(){
 				var bowler = Bowler()
 				var hello = bowler.Model('hello', {hello : 'world'})
 				var helloView = bowler.View('hello', '<p>{{hello}}</p>')
-				assert.equal('<p>world</p>', bowler.model.child.hello)
+				assert.equal('<p>world</p>', bowler.model._children.hello)
+			})
+
+			it('template should be availble in parent model through hanldbars helper', function(){
+				var bowler = Bowler()
+				var hello = bowler.Model('hello', {hello : 'world'});
+				var helloView = bowler.View('hello', '<p>{{hello}}</p>');
+				assert.equal('<p>world</p>', bowler.render('{{child "hello"}}'))	
 			})
 
 		})
