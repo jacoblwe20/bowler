@@ -10,8 +10,12 @@
   <header>
   	<h1>{{headline}}</h1>
   </header>
-  {{{child "page"}}}
+  <div class="page">
+  	{{{child "page"}}}
+  </div>
+  <div class="page">
   {{{child "another"}}}
+  </div>
   <footer>
   	<p>{{footer}}</p>
   </footer>
@@ -29,10 +33,10 @@
 		title : 'Simple Model', 
 		tagline: 'Checkout the code!'
 	});
-	var pageView = bowler.View('page', '<h4>{{title}}</h4><em>{{tagline}}</em><hr/>');
+	var pageView = bowler.View('page', '<h4>{{title}}</h4><em>{{tagline}}</em>');
 	var another = bowler.Model('another', {
 		title : 'Another Model', 
 		tagline: 'This one is better then the last'
 	});
-	var anotherView = bowler.View('another', '<h4>{{title}}</h4><em>{{tagline}}</em><hr/>');
+	var anotherView = bowler.View('another', '<h4>{{title}}</h4><em>{{tagline}}</em>');
 </script>
