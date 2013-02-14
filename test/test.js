@@ -22,6 +22,12 @@ describe('Bowler', function(){
 			assert.equal('object', typeof bowler.model);
 		})
 
+		it('should have a child object when there are children models', function(){
+			var bowler = Bowler()
+			var hello = bowler.Model('hello', {hello : 'world'})
+			assert.equal('object', typeof bowler.model.child)
+		})
+
 		describe('Contructor', function(){
 			it('should be a function', function(){
 				var bowler = Bowler()
@@ -70,15 +76,6 @@ describe('Bowler', function(){
 			it('Get should be a function', function(){
 				var bowler = Bowler()
 				var hello = bowler.Model('hello')
-				assert.equal('function',typeof hello.get);
-			})
-			it('Get should update the model in callback', function(){
-				var bowler = Bowler()
-				var hello = bowler.Model('hello')
-				hello.get('test.json', function(){
-					hello.model.title.should.equal('world');
-					done();
-				})
 				assert.equal('function',typeof hello.get);
 			})
 		})
@@ -178,6 +175,13 @@ describe('Bowler', function(){
 				var helloView = bowler.View('hello', '<p>{{hello}}</p>')
 				var ele = helloView.bind('<div/>')
 				assert.equal('<p>world</p>', ele.html())
+			})
+
+			it('should pass the compiled template to parent model', function(){
+				var bowler = Bowler()
+				var hello = bowler.Model('hello', {hello : 'world'})
+				var helloView = bowler.View('hello', '<p>{{hello}}</p>')
+				assert.equal('<p>world</p>', bowler.model.child.hello)
 			})
 
 		})
