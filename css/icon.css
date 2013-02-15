@@ -22,6 +22,19 @@
 	overflow: hidden;
 }
 
+.logo:active i{
+	-webkit-transform: translate(0px, 10px) rotate(5deg)!important;
+}
+
+.logo:hover i{
+	-webkit-transform: translate(0px, -3px) rotate(-5deg);
+}
+
+
+.logo:active .background{
+	text-shadow: 0px 0px 25px rgba(0,0,0,.7);
+}
+
 .logo::before{
 	position: absolute;
 	border-radius: 100%;
@@ -42,6 +55,7 @@
 	font-style: normal;
 	display: block;
 	width: 100%;
+	-webkit-transition: all .5s;
 }
 
 .logo .background::before{
