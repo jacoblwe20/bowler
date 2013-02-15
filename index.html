@@ -1,9 +1,28 @@
 <!doctype html>
 <title>Bowler</title>
-<link href="css/foundation.min.css" rel="stylesheet" type="text/css">
+<link href="css/main.css" rel="stylesheet" type="text/css">
 <div class="row">
-	<div class="columns six centered">
+	<div class="columns eight centered">
+    <div class="logo">
+      <i class="background"></i>
+      <i class="highlights"></i>
+      <i class="band"></i>
+      <i class="band-highlights"></i>
+    </div>
 		<h1>Bowler.js</h1>
-    <p>Bowler.js is a Model/View framework for the gentleman in you.</p>
+    <p>Bowler.js is a Model / View framework for the gentleman in you.</p>
+    <h4>Use it</h4>
+    <p>Bowler is super simple to use. Just include the file then...</p>
+    <pre><code>var app = Bowler();
+app.extend({title : "hello"});
+app.render('&lt;p&gt;{{title}}&lt;/p&gt;');
+app.bind('body');</code></pre>
+    <h4>Child Models</h4>
+    <p>Whats the use of only having one model. Bowler supports child models.</p>
+    <pre><code>var page = app.Model('page', { world: "universe" });
+var pageView = app.View('page', "&lt;b&gt;{{universe}}&lt;/b&gt;");
+//changing the main models template
+app.render("&lt;h1&gt;{{title}}{{{child "world"}}}&lt;/h1&gt;");</code></pre>
+  <a href="https://github.com/jacoblwe20/bowler" class="button secondary radius">View more on Github.com</a>
 	</div>
 </div>

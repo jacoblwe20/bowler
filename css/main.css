@@ -1,0 +1,25 @@
+@import url("foundation.min.css");
+@import url("icon.css");
+
+body{
+	background: #ccc;
+	padding-bottom: 20px;
+}
+h1{
+	text-align: center;
+}
+pre{
+	padding: 10px;
+	color: #7FF6FF;
+	border-radius: 4px;
+	overflow: hidden;
+	text-shadow: 0px 1px 1px rgba(0,0,0,.5);
+	box-shadow: inset 0px 1px 1px rgba(255,255,255,.3);
+}
+pre, code{
+	background: #00BAC8;
+	line-height: 30px;
+}
+.button{
+	margin-top: 20px;
+}
