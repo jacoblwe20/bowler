@@ -44,7 +44,7 @@ app.bind('body');</code>"
 			},
 			{
 				"tag" : "pre",
-				"content" : "<code>var page = app.Model('page', { world: \"universe\" });\
+				"content" : "<code>var page = app.Model('page', { world: \"universe\" });\n\
 var pageView = app.View('page', \"&lt;b&gt;{{universe}}&lt;/b&gt;\");\n\
 //changing the main models template\n\
 app.render(\"&lt;h1&gt;{{title}}{{{child \"world\"}}}&lt;/h1&gt;\");</code>"
