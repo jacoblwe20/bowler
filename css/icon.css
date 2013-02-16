@@ -18,7 +18,7 @@
 	position: relative;
 	text-align: center;
 	height: 300px;
-	border-bottom: 1px solid #BDBDBD;
+	border-bottom: 1px solid #E6E6E6;
 	overflow: hidden;
 }
 
@@ -28,11 +28,6 @@
 
 .logo:hover i{
 	-webkit-transform: translate(0px, -3px) rotate(-5deg);
-}
-
-
-.logo:active .background{
-	text-shadow: 0px 0px 25px rgba(0,0,0,.7);
 }
 
 .logo::before{
@@ -58,21 +53,32 @@
 	-webkit-transition: all .5s;
 }
 
+.logo .background{
+	color: #555;
+	text-shadow: 0px 1px 1px rgba(0,0,0,1), 0px 25px 50px rgba(0,0,0,.3);
+}
+
+.logo:active .background{
+	text-shadow: 0px 1px 1px rgba(0,0,0,1), 5px 20px 40px rgba(0,0,0,.35)!important;
+}
+
+.logo:hover .background{
+	text-shadow: 0px 1px 1px rgba(0,0,0,1), -3px 25px 45px rgba(0,0,0,.31);
+}
+
 .logo .background::before{
 	content: "a";
-	color: #222;
-	text-shadow: 0px 25px 50px rgba(0,0,0,.3);
 }
 
 .logo .highlights::before{
 	content: "b";
-	color: #666;
+	color: #888;
 }
 
 .logo .band::before{
 	content: "c";
 	color: #00bac8;
-	text-shadow: 0px 2px 2px rgba(0,0,0,1);
+	text-shadow: 0px 2px 2px rgba(0,0,0,.3);
 }
 
 .logo .band-highlights::before{

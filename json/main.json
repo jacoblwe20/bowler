@@ -1,0 +1,56 @@
+{
+	"contents" : [
+		{
+			"tag" : "h4",
+			"content" : "Use it"
+		},
+		{
+			"tag" : "p",
+			"content" : "Bowler is super simple to use. Just include jQuery, Handlebars and the Bowler.js file then..."
+		},
+		{
+			"tag" : "pre",
+			"content" : "<code>var app = Bowler();\napp.extend({title : \"hello\"});\napp.render('&lt;p&gt;{{title}}&lt;/p&gt;');\napp.bind('body');</code>"
+		},
+		{
+			"tag" : "h6",
+			"content" : "extend - bowler.Model.extend"
+		},
+		{
+			"tag" : "p",
+			"content" : "Extend will extend the model and overwrite any previously written values."
+		},
+		{
+			"tag" : "h6",
+			"content" : "render - bowler.View.extend"
+		},
+		{
+			"tag" : "p",
+			"content" : "Render will place vaiables into a Mustache template and store the template as well"
+		},
+		{
+			"tag" : "h6",
+			"content" : "bind - bowler.View.extend"
+		},
+		{
+			"tag" : "p",
+			"content" : "Bind will bind our template to a element on the page."
+		},
+		{
+			"tag" : "p",
+			"content" : "This script will bind our template to the body and now when ever our model is updated it will update the view bound to the body."
+		},
+		{
+			"tag" : "h4",
+			"content" : "Child Models"
+		},
+		{
+			"tag" : "p",
+			"content" : "Whats the use of only having one model. Bowler supports child models."
+		},
+		{
+			"tag" : "pre",
+			"content" : "<code>var page = app.Model('page', { world: \"universe\" });\nvar pageView = app.View('page', \"&lt;b&gt;{{universe}}&lt;/b&gt;\");\n//changing the main models template\napp.render(\"&lt;h1&gt;{{title}}{{{child 'page'}}}&lt;/h1&gt;\");</code>"
+		}
+	]
+}
