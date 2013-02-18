@@ -37,19 +37,19 @@ var Handlebars = (typeof require !== 'undefined') ? require('handlebars') : (Han
       model.get = function(path, callback){
         if(path && typeof path === 'string'){
           $.ajax({
-          	url : path,
-          	dataType : 'json',
-          	type : 'get',
-          	error : function(res){
-          		callback({
-          			error: 'cannot retrieve data or was not in json format', 
-          			originalError : res
-          		}, null);
-          	},
-          	success : function(res){
-          		model.extend(res);
-          		callback(null, res);
-          	}
+            url : path,
+            dataType : 'json',
+            type : 'get',
+            error : function(res){
+              callback({
+                error: 'cannot retrieve data or was not in json format', 
+                originalError : res
+              }, null);
+            },
+            success : function(res){
+              model.extend(res);
+              callback(null, res);
+            }
           })
         }else{
           callback({error: 'path not specified'}, null);
@@ -61,11 +61,9 @@ var Handlebars = (typeof require !== 'undefined') ? require('handlebars') : (Han
           that._views[name].render();
         }
       };
-
       if(object){
         model.extend(object);
       }
-
       that._models[name] = model;
 
       return model;
@@ -94,8 +92,8 @@ var Handlebars = (typeof require !== 'undefined') ? require('handlebars') : (Han
           if(that.model._children){
             that.model._children[name] = view.view;
           }
-          if(that._children && typeof that._children[name] === 'string'){
-            that.render();
+          if(that._children && that._children[name] && !view.ele){
+            view.bind('[data-bind="'+ name + '"]');
           }
           return view.view;
         }
@@ -103,7 +101,11 @@ var Handlebars = (typeof require !== 'undefined') ? require('handlebars') : (Han
         return view.template;
       };
       view.bind = function(selector){
-        view.ele = $(selector);
+        if(typeof selector === 'object'){
+          view.ele = selector;
+        }else{
+          view.ele = $(selector);
+        }
         if(view.view){
           view.ele.html(view.view);
         }
@@ -127,9 +129,14 @@ var Handlebars = (typeof require !== 'undefined') ? require('handlebars') : (Han
         that._children = {};
       }
       that._children[context] = "true";
-      if(this._children && typeof this._children[context] === 'string'){
-        return new Handlebars.SafeString(this._children[context].toString());
-      }
+      var ele = $('<span/>')
+        .attr('data-bind', context)
+        .html(
+          (that._views[context] && typeof that._views[context].view === 'string')
+          ? that._views[context].view.toString()
+          : '');
+      that._children[context] = true;
+      return new Handlebars.SafeString($('<div/>').append(ele).html());
     });
 
     return that;
