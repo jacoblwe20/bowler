@@ -6,6 +6,7 @@ describe('Bowler', function(){
 	it('should be a function', function(){
 		assert.equal('function', typeof Bowler)
 	}); 
+
 	it('should return an object', function(){
 		assert.equal('object', typeof Bowler())
 	});
@@ -20,6 +21,12 @@ describe('Bowler', function(){
 		it('should return an object', function(){
 			var bowler = Bowler()
 			assert.equal('object', typeof bowler.model);
+		})
+
+		it('should have a child object when there are children models', function(){
+			var bowler = Bowler()
+			var hello = bowler.Model('hello', {hello : 'world'})
+			assert.equal('object', typeof bowler.model._children)
 		})
 
 		it('should have a child object when there are children models', function(){
@@ -188,7 +195,7 @@ describe('Bowler', function(){
 				var bowler = Bowler()
 				var hello = bowler.Model('hello', {hello : 'world'});
 				var helloView = bowler.View('hello', '<p>{{hello}}</p>');
-				assert.equal('<p>world</p>', bowler.render('{{child "hello"}}'))	
+				assert.equal(true, /world/.test(bowler.render('{{{child "hello"}}}')));	
 			})
 
 		})

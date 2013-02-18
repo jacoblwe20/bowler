@@ -10,7 +10,7 @@
   <header>
     <h1>{{headline}}</h1>
   </header>
-  <nav class="links"></nav>
+  <nav class="links">{{{child "examples"}}}</nav>
   <footer>
     <em>{{footer}}</em>
   </footer>
@@ -38,11 +38,10 @@
     links : [
       {href : '/examples/simple_model.html', title : 'A Simple Model'},
       {href : '/examples/app_model.html', title : 'App Model'},
-      {href : '/examples/dynamic_model.html', title : 'Dynamic Model'}
+      {href : '/examples/dynamic_model.html', title : 'Dynamic Model'},
+      {href : '/examples/child_helper.html', title : 'Child Helper'}
     ]
   });
-  console.log([examples.model, $('.nav').html()]);
   exampleView = bowler.View('examples', $('.nav').html());
-  exampleView.bind('.links');
 
 </script>
