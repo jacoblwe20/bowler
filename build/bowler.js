@@ -215,148 +215,61 @@ var Marrow = (Marrow) ? Marrow : exports.Marrow; // map if not avail
 
 }(Marrow));
 
-(function(exports, Base, $, Handlebars){
+(function(exports, Base, $){
 
   var Bowler = function(){
+
     if(!(this instanceof Bowler)){
       return new Bowler();
     }
-    var that = this;
-    that._models = {};
-    that._views = {};
 
-    that.Model = function(name, object){
-      if(!(name)){
-        return name;
+    // creating some objects to store models
+    // and views
+    this._models = {};
+    this._views = {};
+
+    // create an app model and view 
+    $.extend(this, this.View('bowler'));
+    $.extend(this, this.Model('bowler'));
+
+    this.Helper(); // add a helper for Handlebars
+
+    return this;
+
+  };
+
+  Bowler = Base(Bowler); // extend with Marrow
+
+  Bowler.prototype.Helper = function(){
+
+    var 
+    self = this; // local this
+
+    this.registerHelper('child', function(context, options) {
+
+      if(!self._children){
+        self._children = {};
       }
-      if(!(this instanceof that.Model)){
-        return new that.Model(name, object);
-      }
-      if(that.model && typeof that.model._children === 'undefined'){
-        that.model._children = {};
-      }
-      var model = this;
-      model.model = {};
 
-      model.extend = function(obj){
-        if(typeof obj === 'object'){
-          $.extend(model.model, obj);
-          model.update();
-          return model.model;
-        }else{
-          return null;
-        }
-      };
+      self._children[context] = "true";
 
-      model.get = function(path, callback){
-        if(path && typeof path === 'string'){
-          $.ajax({
-          	url : path,
-          	dataType : 'json',
-          	type : 'get',
-          	error : function(res){
-          		callback({
-          			error: 'cannot retrieve data or was not in json format', 
-          			originalError : res
-          		}, null);
-          	},
-          	success : function(res){
-          		model.extend(res);
-          		callback(null, res);
-          	}
-          })
-        }else{
-          callback({error: 'path not specified'}, null);
-        }
-      };
-
-      model.update = function(){
-        if(that._views[name]){
-          that._views[name].render();
-        }
-      };
-      if(object){
-        model.extend(object);
-      }
-      that._models[name] = model;
-
-      return model;
-    };
-
-    that.View = function(name, template){
-      if(!(name)){
-        return name;
-      }
-      if(!(this instanceof that.View)){
-        return new that.View(name, template);
-      }
-      var view = this;
-      view.render = function(str){
-        if(typeof str === 'undefined'){
-          str = template;
-        }else{
-          template = str;
-        }
-        view.template = view.compile(str);
-        if(that._models[name]){
-          view.view = view.template(that._models[name].model);
-          if(view.ele){
-            view.ele.html(view.view);
-          }
-          if(that.model._children){
-            that.model._children[name] = view.view;
-          }
-          if(that._children && that._children[name] && !view.ele){
-            view.bind('[data-bind="'+ name + '"]');
-          }
-          return view.view;
-        }
-        view.template = view.compile(template);
-        return view.template;
-      };
-      view.bind = function(selector){
-        if(typeof selector === 'object'){
-          view.ele = selector;
-        }else{
-          view.ele = $(selector);
-        }
-        if(view.view){
-          view.ele.html(view.view);
-        }
-        return view.ele;
-      };
-      $.extend(view, Handlebars);
-
-      if(template){
-        view.render();
-      }
-      that._views[name] = view;
-
-      return view;
-    };
-
-    $.extend(that, that.Model('bowler'));
-    $.extend(that, that.View('bowler'));
-
-    Handlebars.registerHelper('child', function(context, options) {
-      if(!that._children){
-        that._children = {};
-      }
-      that._children[context] = "true";
       var ele = $('<span/>')
         .attr('data-bind', context)
         .html(
-          (that._views[context] && typeof that._views[context].view === 'string')
-          ? that._views[context].view.toString()
-          : '');
-      that._children[context] = true;
-      return new Handlebars.SafeString($('<div/>').append(ele).html());
+          ( 
+            self._views[context] && 
+            typeof self._views[context].view === 'string'
+          ) ? 
+          self._views[context].view.toString() : 
+          ''
+        );
+
+      self._children[context] = true;
+      return new self.SafeString($('<div/>').append(ele).html());
+
     });
 
-    return that;
   };
-
-  Bowler = Base(Bowler);
 
   exports.Bowler = Bowler;
 
@@ -364,6 +277,186 @@ var Marrow = (Marrow) ? Marrow : exports.Marrow; // map if not avail
   // dependecies
   this, 
   Marrow, 
-  jQuery, 
-  Handlebars
+  jQuery
 ));
+
+
+(function(Bowler, $){  
+  
+  var
+  // make a local Model variable
+  Model;
+
+  Model = Bowler.prototype.Model = function(name, object, context){
+
+    if(!(name)){
+      return name;
+    }
+
+    if(!(this instanceof Model)){
+
+      if(this instanceof Bowler){
+        context = this;
+      }
+
+      return new Model(name, object, context);
+
+    }
+
+    this.context = context;
+
+    if(context.model && typeof context.model._children === 'undefined'){
+      context.model._children = {};
+    }
+
+    this.model = {};
+
+    if(object){
+      this.extend(object);
+    }
+
+    context._models[name] = this;
+
+    return this;
+
+  };
+
+  Model.prototype.extend = function(obj){
+    if(typeof obj === 'object'){
+      $.extend(this.model, obj);
+      this.update();
+      return this.model;
+    }else{
+      return null;
+    }
+  };
+
+  Model.prototype.get = function(path, callback){
+    if(path && typeof path === 'string'){
+      var self = this;
+      $.ajax({
+        url : path,
+        dataType : 'json',
+        type : 'get',
+        error : function(res){
+          callback({
+            error: 'cannot retrieve data or was not in json format', 
+            originalError : res
+          }, null);
+        },
+        success : function(res){
+          self.extend(res);
+          callback(null, res);
+        }
+      });
+    }else{
+      callback({error: 'path not specified'}, null);
+    }
+  };
+
+  Model.prototype.update = function(){
+    console.log(this);
+    if(this.context._views[name]){
+      that.context._views[name].render();
+    }
+  };
+
+}(Bowler, jQuery));
+
+(function(Bowler, Handlebars){
+
+  var
+  // make a local Model variable
+  View;
+
+  View = Bowler.prototype.View = function(name, template, context){
+
+    if(!(name)){
+      return name;
+    }
+
+    if(!(this instanceof View)){
+
+      if(this instanceof Bowler){
+        context = this;
+      }
+
+      return new View(name, template, context);
+    }
+
+    this.context = context;
+    
+    $.extend(this, Handlebars);
+
+    if(template){
+      this.render();
+    }
+
+    context._views[name] = this;
+
+    this.template = template;
+    this.name = name;
+
+    return this;
+  };
+
+  View.prototype.render = function(str){
+
+    var
+    // map some local variables 
+    context = this.context,
+    model = context.model,
+    name = this.name,
+    view = this.view;
+
+
+    if(typeof str === 'undefined'){
+      str = this.template;
+    }else{
+      this.template = str;
+    }
+
+    this.template = this.compile(str);
+
+    if(context._models[name]){
+
+      view = this.template(context._models[name].model);
+
+      if(this.ele){
+        this.ele.html(view);
+      }
+
+      if(model._children){
+        model._children[name] = view;
+      }
+
+      if(
+        context._children && 
+        context._children[name] && 
+        !this.ele
+      ){
+        this.bind('[data-bind="'+ name + '"]');
+      }
+      return view;
+    }
+
+    this.template = this.compile(template);
+    return this.template;
+  };
+
+  View.prototype.bind = function(selector){
+
+    if(selector instanceof jQuery){
+      this.ele = selector;
+    }else{
+      this.ele = $(selector);
+    }
+
+    if(this.view){
+      this.ele.html(this.view);
+    }
+
+    return this.ele;
+  };
+
+}(Bowler, Handlebars));

@@ -1,7 +1,13 @@
 module.exports = function(grunt) {
 
   // Project configuration
-  var files = ["lib/dependencies.js", "lib/Marrow.js", "lib/Bowler.js"];
+  var files = [
+    "lib/dependencies.js", 
+    "lib/Marrow.js", 
+    "lib/core.js",
+    "lib/model.js",
+    "lib/view.js"
+  ];
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -22,7 +28,7 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      all: ['Gruntfile.js', 'src/*.js']
+      all: ['Gruntfile.js', 'lib/*.js']
     },
     concat: {
       options: {
