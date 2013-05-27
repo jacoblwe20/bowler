@@ -1,6 +1,8 @@
-var jQuery = require('jquery');
-var Bowler = require("../lib/Bowler.js").Bowler
-var assert = require("assert")
+var 
+// adding all dependecies
+jQuery = require('jquery'),
+file = require("../lib/Bowler.js").Bowler,
+assert = require("assert");
 
 describe('Bowler', function(){
 	it('should be a function', function(){
