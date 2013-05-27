@@ -1,9 +1,9 @@
 /*
- * Bowler.js - 0.0.4 
+ * Bowler.js - 0.0.6 
  * Description : a simple MV framework using handlebars & jQuery 
  * Project Url : https://github.com/jacoblwe20/bowler.git 
  * Author : Jacob Lowe <jacoblowe.me> 
- * License :  
+ * License : MIT 
  */
 
 var jQuery = (typeof require !== 'undefined') ? require('jquery') : (jQuery) ? jQuery : null;

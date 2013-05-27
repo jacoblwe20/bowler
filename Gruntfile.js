@@ -10,7 +10,7 @@ module.exports = function(grunt) {
       ' * Description : <%= pkg.description %> \n' +
       ' * Project Url : <%= pkg.repository.url %> \n' +
       ' * Author : <%= pkg.author %> \n' +
-      ' * License : <%= pkg.license %> \n' +
+      ' * License : <%= pkg.license.type %> \n' +
       ' */\n\n',
     uglify: {
       options: {
