@@ -2,6 +2,10 @@
 
 Bowler is a simple MV framework that uses jQuery & Handlebars
 
+#### `warning` bowler is going through some large changes
+
+please voice any concerns or ideas in the issues
+
 ### Use
 
 include Bowler, Handlebars && jQuery
