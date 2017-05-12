@@ -1,5 +1,7 @@
 ## Bowler
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jcblw/bowler.svg)](https://greenkeeper.io/)
+
 Bowler is a simple MV framework that uses jQuery & Handlebars
 
 #### `warning` bowler is going through some large changes
